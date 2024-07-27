@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negotiate Ad Request</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-3">
+        <h1>Negotiate Ad Request</h1>
+        <form method="POST" action="{{ url_for('routes.negotiate_ad_request', ad_request_id=ad_request.id) }}">
+            <div class="form-group">
+                <label for="payment_amount">Payment Amount</label>
+                <input type="number" class="form-control" id="payment_amount" name="payment_amount" value="{{ ad_request.payment_amount }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Negotiate</button>
+        </form>
+    </div>
+</body>
+</html>

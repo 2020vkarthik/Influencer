@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-3">
+        <h1>Welcome, {{ current_user.username }}!</h1>
+        
+        <div class="mb-3">
+            <a href="{{ url_for('routes.view_ad_requests') }}" class="btn btn-primary">View Ad Requests</a>
+            <a href="{{ url_for('routes.search_campaigns') }}" class="btn btn-primary">Search Campaigns</a>
+            <a href="{{ url_for('routes.influencer_profile') }}" class="btn btn-primary">Profile</a>
+            <a href="{{ url_for('routes.logout') }}" class="btn btn-danger">Logout</a>
+        </div>
+        
+        <h2>Your Ad Requests</h2>
+        <ul class="list-group">
+            {% for ad_request in ad_requests %}
+                <li class="list-group-item 
+                    {% if ad_request.status == 'Accepted' %}status-accepted
+                    {% elif ad_request.status == 'Rejected' %}status-rejected
+                    {% else %}status-pending
+                    {% endif %}">
+                    <h5>Campaign: {{ ad_request.campaign.name }}</h5>
+                    <p>Messages: {{ ad_request.messages }}</p>
+                    <p>Requirements: {{ ad_request.requirements }}</p>
+                    <p>Payment Amount: {{ ad_request.payment_amount }}</p>
+                    <p>Status: {{ ad_request.status }}</p>
+                    {% if ad_request.status == 'Pending' %}
+                        <a href="{{ url_for('routes.accept_ad_request', ad_request_id=ad_request.id) }}" class="btn btn-success">Accept</a>
+                        <a href="{{ url_for('routes.reject_ad_request', ad_request_id=ad_request.id) }}" class="btn btn-danger">Reject</a>
+                        <a href="{{ url_for('routes.negotiate_ad_request', ad_request_id=ad_request.id) }}" class="btn btn-warning">Negotiate</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

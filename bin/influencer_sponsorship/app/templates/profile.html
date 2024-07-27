@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Sponsor Profile</h1>
+        <a href="{{ url_for('routes.sponsor_dashboard') }}" class="btn btn-secondary mb-3">Go to Dashboard</a>
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-{{ messages[0][0] }}">
+                    {{ messages[0][1] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="company_name">Company Name / Individual Name</label>
+                <input type="text" class="form-control" id="company_name" name="company_name" value="{{ sponsor.company_name }}" required>
+            </div>
+            <div class="form-group">
+                <label for="industry">Industry</label>
+                <input type="text" class="form-control" id="industry" name="industry" value="{{ sponsor.industry }}" required>
+            </div>
+            <div class="form-group">
+                <label for="budget">Budget</label>
+                <input type="number" class="form-control" id="budget" name="budget" value="{{ sponsor.budget }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+    </div>
+</body>
+</html>

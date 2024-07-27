@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influencer Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-3">
+        <a href="{{ url_for('routes.influencer_dashboard') }}" class="btn btn-secondary mb-3">Go to Dashboard</a>
+        <h1>Your Profile</h1>
+        <form method="POST" action="{{ url_for('routes.influencer_profile') }}">
+            <div class="form-group">
+                <label for="influencer_id">Influencer ID</label>
+                <input type="text" class="form-control" id="influencer_id" name="influencer_id" value="{{ influencer.id }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" class="form-control" id="category" name="category" value="{{ influencer.category }}">
+            </div>
+            <div class="form-group">
+                <label for="niche">Niche</label>
+                <input type="text" class="form-control" id="niche" name="niche" value="{{ influencer.niche }}">
+            </div>
+            <div class="form-group">
+                <label for="reach">Reach</label>
+                <input type="number" class="form-control" id="reach" name="reach" value="{{ influencer.reach }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+    </div>
+</body>
+</html>

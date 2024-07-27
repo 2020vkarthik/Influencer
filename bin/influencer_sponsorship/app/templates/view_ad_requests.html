@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Ad Requests</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .status-accepted {
+            background-color: #d4edda; /* Light green */
+            color: #155724; /* Dark green */
+        }
+        .status-rejected {
+            background-color: #f8d7da; /* Light red */
+            color: #721c24; /* Dark red */
+        }
+        .status-pending {
+            background-color: #fff3cd; /* Light yellow */
+            color: #856404; /* Dark yellow */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        {% if current_user.role == 'sponsor' %}
+            <a href="{{ url_for('routes.sponsor_dashboard') }}" class="btn btn-secondary mb-3">Go to Dashboard</a>
+        {% elif current_user.role == 'influencer' %}
+            <a href="{{ url_for('routes.influencer_dashboard') }}" class="btn btn-secondary mb-3">Go to Dashboard</a>
+        {% endif %}
+        <h1>Ad Requests</h1>
+        <ul class="list-group">
+            {% for ad_request in ad_requests %}
+                <li class="list-group-item 
+                    {% if ad_request.status == 'Accepted' %}status-accepted
+                    {% elif ad_request.status == 'Rejected' %}status-rejected
+                    {% else %}status-pending
+                    {% endif %}">
+                    <h5>Campaign: {{ ad_request.campaign.name }}</h5>
+                    <p>Messages: {{ ad_request.messages }}</p>
+                    <p>Requirements: {{ ad_request.requirements }}</p>
+                    <p>Payment Amount: {{ ad_request.payment_amount }}</p>
+                    <p>Status: {{ ad_request.status }}</p>
+                    {% if ad_request.status == 'Pending' and current_user.role == 'influencer' %}
+                        <a href="{{ url_for('routes.accept_ad_request', ad_request_id=ad_request.id) }}" class="btn btn-success">Accept</a>
+                        <a href="{{ url_for('routes.reject_ad_request', ad_request_id=ad_request.id) }}" class="btn btn-danger">Reject</a>
+                        <a href="{{ url_for('routes.negotiate_ad_request', ad_request_id=ad_request.id) }}" class="btn btn-warning">Negotiate</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

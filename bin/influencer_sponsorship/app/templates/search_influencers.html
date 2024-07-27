@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Influencers</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <a href="{{ url_for('routes.sponsor_dashboard') }}" class="btn btn-secondary mb-3">Go to Dashboard</a>
+        <h1>Search Influencers</h1>
+        <form method="POST" action="{{ url_for('routes.search_influencers') }}">
+            <div class="form-group">
+                <label for="niche">Niche</label>
+                <input type="text" class="form-control" id="niche" name="niche">
+            </div>
+            <div class="form-group">
+                <label for="reach">Reach (Minimum Followers)</label>
+                <input type="number" class="form-control" id="reach" name="reach">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <hr>
+        <h2>Results</h2>
+        <ul class="list-group">
+            {% for influencer in influencers %}
+                <li class="list-group-item">
+                    <h5>{{ influencer.user.username }}</h5> <!-- Assuming the username is stored in the User model -->
+                    <p>Category: {{ influencer.category }}</p>
+                    <p>Niche: {{ influencer.niche }}</p>
+                    <p>Reach: {{ influencer.reach }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

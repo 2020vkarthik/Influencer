@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sponsor Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="mb-3">
+            <a href="{{ url_for('routes.create_campaign') }}" class="btn btn-primary">Create Campaign</a>
+            <a href="{{ url_for('routes.create_ad_request') }}" class="btn btn-primary">Create Ad Request</a>
+            <a href="{{ url_for('routes.search_influencers') }}" class="btn btn-primary">Search Influencers</a>
+            <a href="{{ url_for('routes.view_ad_requests') }}" class="btn btn-primary">View Ad Requests</a>
+            <a href="{{ url_for('routes.profile') }}" class="btn btn-primary">Profile</a>
+            <a href="{{ url_for('routes.logout') }}" class="btn btn-danger">Logout</a>
+        </div>
+        <h1>My Campaigns</h1>
+        <ul class="list-group">
+            {% for campaign in campaigns %}
+                <li class="list-group-item">
+                    <h5>{{ campaign.name }}</h5>
+                    <p>Description: {{ campaign.description }}</p>
+                    <p>Start Date: {{ campaign.start_date }}</p>
+                    <p>End Date: {{ campaign.end_date }}</p>
+                    <p>Budget: {{ campaign.budget }}</p>
+                    <p>Visibility: {{ campaign.visibility }}</p>
+                    <p>Goals: {{ campaign.goals }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

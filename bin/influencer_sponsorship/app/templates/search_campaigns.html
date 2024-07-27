@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Campaigns</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-3">
+        <a href="{{ url_for('routes.influencer_dashboard') }}" class="btn btn-secondary mb-3">Go to Dashboard</a>
+        <h1>Search Campaigns</h1>
+        <form method="POST" action="{{ url_for('routes.search_campaigns') }}">
+            <div class="form-group">
+                <label for="niche">Niche</label>
+                <input type="text" class="form-control" id="niche" name="niche">
+            </div>
+            <div class="form-group">
+                <label for="budget">Maximum Budget</label>
+                <input type="number" class="form-control" id="budget" name="budget">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <hr>
+        <h2>Results</h2>
+        <ul class="list-group">
+            {% for campaign in campaigns %}
+                <li class="list-group-item">
+                    <h5>{{ campaign.name }}</h5>
+                    <p>Description: {{ campaign.description }}</p>
+                    <p>Start Date: {{ campaign.start_date }}</p>
+                    <p>End Date: {{ campaign.end_date }}</p>
+                    <p>Budget: {{ campaign.budget }}</p>
+                    <p>Category: {{ campaign.category }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
